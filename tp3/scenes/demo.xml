@@ -1,0 +1,2928 @@
+<sxs>
+    <scene root="demoRoot" axis_length="5"/>
+
+    <views default="defaultCamera">
+        <!-- <perspective id="blackPlayer" near="0.1" far="500" angle="45">
+            <from x="30" y="25" z="45" />
+            <to x="0" y="-2" z="0" />
+        </perspective>  -->
+        <perspective id="defaultCamera" near="0.1" far="500" angle="45">
+            <from x="30" y="25" z="45" />
+            <to x="0" y="-2" z="0" />
+        </perspective>
+
+        <ortho id="boardCamera" near="0.1" far="500" left="-5" right="5" top="5" bottom="-5">
+            <from x="9" y="5" z="13.5" />
+            <to x="9" y="0.1" z="13.5" />
+            <up x="0" y="0" z="1" />
+        </ortho>
+
+        <perspective id="blackPlayer" near="0.1" far="500" angle="45">
+            <from x="10" y="4" z="12.5" />
+            <to x="10" y="0" z="15" />
+        </perspective>
+
+        <perspective id="whitePlayer" near="0.1" far="500" angle="45">
+            <from x="10" y="4" z="17" />
+            <to x="10" y="0" z="15" />
+        </perspective>
+
+        <perspective id="Camera1" near="0.1" far="500" angle="45">
+            <from x="19" y="15" z="19" />
+            <to x="0" y="2" z="0" />
+        </perspective>
+
+        <perspective id="insideHouse" near="0.1" far="500" angle="45">
+            <from x="-13" y="10" z="12" />
+            <to x="0" y="2" z="0" />
+        </perspective>
+
+        <perspective id="tankView" near="0.1" far="500" angle="45">
+            <from x="2" y="5" z="-3" />
+            <to x="0" y="5" z="5" />
+        </perspective>
+
+        <ortho id="facingTankOrtho"  near="0.1" far="500" left="-5" right="10" top="10" bottom="0" >
+            <from x="0" y="0" z="10" />
+            <to x="0" y="0" z="0" />
+            <up x="0" y="2" z="0"/>
+        </ortho>
+        <ortho id="sideOrtho" near="0.1" far="500" left="-8.5" right="8.5" top="7" bottom="-5">
+            <from x="10" y="3" z="3" />
+            <to x="0" y="3" z="3" />
+            <up x="0" y="1" z="0" />
+        </ortho>
+        <ortho id="topOrtho" near="0.1" far="500" left="-7.5" right="10" top="6" bottom="-4">
+            <from x="3" y="10" z="3" />
+            <to x="3" y="0" z="3" />
+            <up x="0" y="0" z="1" />
+        </ortho>
+    </views>
+
+    <ambient>
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+        <background r="0.0" g="0.0" b="0.0" a="1.0" />
+    </ambient>
+
+    <lights>
+        <omni id="lamp" enabled="0">            <!-- enable/disable -->
+            <location x="6" y="7" z="18" w="0" /><!-- light position; w=1: point light; w=0: directional light -->
+            <ambient r="1" g="1" b="1" a="1.0" />                   <!-- ambient component -->
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />             <!-- diffuse component -->
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />            <!-- specular component -->
+            <attenuation constant="1" linear="0" quadratic="0" />
+        </omni>
+
+        <omni id="sun" enabled="0">            <!-- enable/disable -->
+            <location x="-14" y="15" z="-35" w="1" /><!-- light position; w=1: point light; w=0: directional light -->
+            <ambient r="1" g="1" b="1" a="1.0" />                   <!-- ambient component -->
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />             <!-- diffuse component -->
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />            <!-- specular component -->
+            <attenuation constant="1" linear="0" quadratic="0" />
+        </omni>
+        
+        <spot id="billboard1" enabled="0" angle="180" exponent="10">
+            <!-- atencao, "target" e' diferente de "direction" -->
+            <location x="-2" y="10" z="-9" w="1.0" />
+            <target x="-10.5" y="6" z="-7" />
+            <ambient r="0" g="0" b="0" a="1.0" />
+            <diffuse r="1" g="1" b="1" a="1.0" />
+            <specular r="1" g="1" b="1" a="1.0" />
+            <attenuation constant="1" linear="0" quadratic="0" />
+
+        </spot>
+
+        <spot id="billboard2" enabled="0" angle="180" exponent="16">
+            <!-- atencao, "target" e' diferente de "direction" -->
+            <location x="-16" y="10" z="-9" w="1.0" />
+            <target x="-7" y="2" z="-13" />
+            <ambient r="0" g="0" b="0" a="1.0" />
+            <diffuse r="1" g="1" b="1" a="1.0" />
+            <specular r="1" g="1" b="1" a="1.0" />
+            <attenuation constant="1" linear="0" quadratic="0" />
+
+        </spot>
+
+        <spot id="piece" enabled="1" angle="1" exponent="800">
+            <location x="9" y="-500" z="15.9" w="1" />
+            <target x="9" y="-500" z="16" />
+            <ambient r="0" g="0" b="0" a="1.0" />
+            <diffuse r="1" g="1" b="1" a="1.0" />
+            <specular r="1" g="1" b="1" a="1.0" />
+            <attenuation constant="1" linear="0" quadratic="0" />
+
+        </spot>
+
+        <spot id="board" enabled="1" angle="180" exponent="500">            <!-- enable/disable -->
+            <location x="10.1" y="1.5" z="14.5" w="1" />
+            <target x="10.1" y="-5" z="14.5" />
+            <ambient r="0" g="0" b="0" a="1.0" />
+            <diffuse r="1" g="1" b="1" a="1.0" />
+            <specular r="1" g="1" b="1" a="1.0" />
+            <attenuation constant="0" linear="1" quadratic="0" />
+        </spot>
+
+    </lights>
+
+    <textures>
+        <texture id="demoTexture" file="scenes/images/vidral.jpg" />
+        <texture id="sandTexture" file="scenes/images/sand.jpg" />
+        <texture id="tireTexture" file="scenes/images/tire.jpg"/>
+        <texture id="tankTexture" file="scenes/images/tank.jpg" />
+        <texture id="gunTexture" file="scenes/images/gun.jpg" />
+        <texture id="mastTexture" file="scenes/images/wood.jpg" />
+        <texture id="flagTexture" file="scenes/images/flag.jpg" />
+        <texture id="bankTexture" file="scenes/images/bank.jpg" />
+        <texture id="asphaltTexture" file="scenes/images/asphalt.png" />
+        <texture id="leavesTexture" file="scenes/images/leaves.jpg" />
+        <texture id="ederTexture" file="scenes/images/eder.jpg" />
+        <texture id="brickTexture" file="scenes/images/brick.jpg" />
+        <texture id="trunkTexture" file="scenes/images/trunk-image.jpg" />
+        <texture id="rocksTexture" file="scenes/images/rocks.jpg" />
+        <texture id="tilesTexture" file="scenes/images/tiles.jpg" />
+        <texture id="windowTexture" file="scenes/images/window.png" />
+        <texture id="sunTexture" file="scenes/images/sun.png" />
+        <texture id="steelTexture" file="scenes/images/steel.jpg" />
+        <texture id="doorTexture" file="scenes/images/door.jpg" />
+        <texture id="rustTexture" file="scenes/images/green_rust.jpg" />
+        <texture id="glassTexture" file="scenes/images/glass.jpg" />
+        <texture id="brokenGlassTexture" file="scenes/images/broken_glass.jpg" />
+        <texture id="camouflageTexture" file="scenes/images/camouflage.jpg" />
+        <texture id="tentTexture" file="scenes/images/camouflage.jpg" />
+        <texture id="barrelTexture" file="scenes/images/greenMetal.jpg" />
+        <texture id="picnicTexture" file="scenes/images/floor.jpg" />
+        <texture id="rocksBaseTexture" file="scenes/images/rocks_base.jpg" />
+        <texture id="explosionTexture" file="scenes/images/explosion.jpg"/>
+    </textures>
+
+    <materials>
+        <material id="demoMaterial" shininess="10">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.0" g="0.4" b="0.0" a="1.0" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+        <material id="wheelMaterial" shininess="100">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.0" g="0.0" b="0.5" a="1.0" />
+            <diffuse r="0.0" g="0.0" b="0.5" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+        <material id="red" shininess="10">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="1" g="0" b="0.0" a="1.0" />
+            <diffuse r="1" g="0" b="0.0" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+        <material id="blue" shininess="10">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0" g="0" b="1" a="1.0" />
+            <diffuse r="0" g="0" b="1" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+        <material id="dark" shininess="10">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0"/>
+            <ambient r="0.2" g="0.2" b="0.2" a="1.0"/>
+            <diffuse r="0.2" g="0.2" b="0.2" a="1.0"/>
+            <specular r="0" g="0" b="0" a="1.0"/>   
+        </material>
+
+        <material id="black" shininess="10">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0"/>
+            <ambient r="0.0" g="0.0" b="0.0" a="1.0"/>
+            <diffuse r="0.0" g="0.0" b="0.0" a="1.0"/>
+            <specular r="0.0" g="0.0" b="0.0" a="1.0"/>   
+        </material>
+
+        <material id="light_yellow" shininess="10">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0"/>
+            <ambient r="0.8" g="0.8" b="0.0" a="1.0"/>
+            <diffuse r="0.8" g="0.8" b="0.0" a="1.0"/>
+            <specular r="0.8" g="0.8" b="0.0" a="1.0"/>
+        </material> 
+
+        <material id="neutral" shininess="2">
+            <emission r="0" g="0" b="0" a="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1" />
+            <diffuse r="0.7" g="0.7" b="0.7" a="1" />
+            <specular r="0.3" g="0.3" b="0.3" a="1" />
+        </material>
+
+        <material id="white" shininess="2">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0"/>
+            <ambient r="0.0" g="0.0" b="0.0" a="1.0"/>
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0"/>
+            <specular r="0.0" g="0.0" b="0.0" a="0.0"/>
+        </material>
+    </materials>
+
+    <transformations>
+        <transformation id="demoTransform">
+            <scale x="1" y="1" z="2" />
+            <rotate axis="x" angle="-45" />
+            <rotate axis="z" angle="-45" />
+            <translate x="0" y="0" z="1" /> 
+        </transformation>
+        <transformation id="theOtherDemoTransform">
+            <translate x="2" y="0" z="1" /> 
+        </transformation>
+    </transformations>
+
+    <primitives>
+        <primitive id="demoRectangle">
+            <rectangle x1="-0.5" y1="-1" x2="0.5" y2="1" />a
+        </primitive>
+        <primitive id="demoTriangle">
+            <triangle x1="0" y1="0" z1="0" x2="0" y2="0" z2="4" x3="0" y3="2" z3="2"/>
+        </primitive>
+        <primitive id="demoSphere">
+            <sphere radius="0.5" slices="50" stacks="50"/>
+        </primitive>
+        <primitive id="demoCylinder">
+            <cylinder base="0.5" top="0.5" height="5" slices="16" stacks="8"/>
+        </primitive>
+        <primitive id="demoTorus">
+            <torus inner="0.3" outer="0.7" slices="50" loops="50" />
+        </primitive>
+        <primitive id="demoCone">
+            <cylinder base="1" top="0.3" height="5" slices="16" stacks="8"/>
+        </primitive>
+
+        <primitive id="patchRectangle">
+            <patch degree_u="1" parts_u="50" degree_v="1" parts_v="50" >
+
+                <controlpoint x="-0.5" y="-1.0" z="0.0" />
+                <controlpoint x="-0.5" y="1.0" z="0.0" />
+                <controlpoint x="0.5" y="-1.0" z="0.0" />
+                <controlpoint x="0.5" y="1.0" z="0.0" />
+            </patch>
+        </primitive>
+
+        <primitive id="patchTent">
+            <patch degree_u="2" parts_u="50" degree_v="1" parts_v="50" >
+
+                <controlpoint x="-1.5" y="-1.5" z="0.0" />
+                <controlpoint x="-1.5" y="1.5" z="0.0" />
+                <controlpoint x="0.0" y="-1.5" z="4.0" />
+                <controlpoint x="0.0" y="1.5" z="4.0" />
+                <controlpoint x="1.5" y="-1.5" z="0.0" />
+                <controlpoint x="1.5" y="1.5" z="0.0" />
+            </patch>
+        </primitive>
+        
+        <primitive id="patchTentInside">
+            <patch degree_u="2" parts_u="50" degree_v="1" parts_v="50" >
+
+                <controlpoint x="1.5" y="1.5" z="0.0" />
+                <controlpoint x="1.5" y="-1.5" z="0.0" />
+                <controlpoint x="0.0" y="1.5" z="-4.0" />
+                <controlpoint x="0.0" y="-1.5" z="-4.0" />
+                <controlpoint x="-1.5" y="1.5" z="0.0" />
+                <controlpoint x="-1.5" y="-1.5" z="0.0" />
+            </patch>
+        </primitive>
+
+        <primitive id="patchHalfBarrel">
+            <patch degree_u="2" parts_u="50" degree_v="3" parts_v="50" >
+                <controlpoint x="0.0" y="2.0" z="0.0" />
+                <controlpoint x="0.0" y="2.0" z="0.75" />
+                <controlpoint x="1.0" y="2.0" z="0.75" />
+                <controlpoint x="1.0" y="2.0" z="0.0" />
+
+                <controlpoint x="-0.5" y="1" z="0.0" />
+                <controlpoint x="-0.5" y="1" z="1.25" />
+                <controlpoint x="1.5" y="1" z="1.25" />
+                <controlpoint x="1.5" y="1" z="0.0" />
+
+                <controlpoint x="0.0" y="0.0" z="0.0" />
+                <controlpoint x="0.0" y="0.0" z="0.75" />
+                <controlpoint x="1.0" y="0.0" z="0.75" />
+                <controlpoint x="1.0" y="0.0" z="0.0" /> 
+                
+            </patch>
+        </primitive>
+
+        <primitive id="patchHalfCircle">
+            <patch degree_u="1" parts_u="50" degree_v="3" parts_v="50" >
+                <controlpoint x="0.0" y="0.0" z="-0.5" />
+                <controlpoint x="0.0" y="0.0" z="-0.5" />
+                <controlpoint x="0.0" y="0.0" z="-0.5" />
+                <controlpoint x="0.0" y="0.0" z="-0.5" />
+
+                <controlpoint x="0.0" y="0.0" z="-1.0" />
+                <controlpoint x="0.0" y="-0.75" z="-1.0" />
+                <controlpoint x="0.0" y="-0.75" z="0.0" />
+                <controlpoint x="0.0" y="0.0" z="0.0" />
+                
+            </patch>
+        </primitive>
+    </primitives>
+
+    <animations>
+        <keyframeanim id="flagAnimation" >
+            <keyframe instant="0">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+
+            <keyframe instant="5">
+                <translation x="0" y="0" z="13" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            
+
+            <!-- <keyframe instant="6">
+                <translation x="0" y="20" z="7" />
+                <rotation axis="x" angle="-135" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe> -->
+
+            <keyframe instant="7">
+                <translation x="0" y="30" z="-3" />
+                <rotation axis="x" angle="-225" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+<!-- 
+            <keyframe instant="8">
+                <translation x="0" y="20" z="0" />
+                <rotation axis="x" angle="-315" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe> -->
+
+            <keyframe instant="9">
+                <translation x="0" y="0" z="-13" />
+                <rotation axis="x" angle="-360" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+
+            <keyframe instant="10">
+                <translation x="0" y="0" z="-13" />
+                <rotation axis="x" angle="-360" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+
+            <keyframe instant="15">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="x" angle="-360" />
+                <rotation axis="y" angle="-60" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+
+            <keyframe instant="25">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="x" angle="-360" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+
+            <keyframe instant="35">
+                <translation x="0" y="0" z="38" />
+                <rotation axis="x" angle="-360" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+
+        </keyframeanim>
+        <keyframeanim id="mineAnimation">
+            <keyframe instant="0">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            
+            <keyframe instant="5">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            
+            <keyframe instant="5.1">
+                <translation x="0" y="-1000" z="0" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+        </keyframeanim>
+        <keyframeanim id="explosionAnimation"> 
+            <keyframe instant="5">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            <keyframe instant="5.5">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="6" sy="6" sz="6" />
+            </keyframe>
+            <keyframe instant="5.6">
+                <translation x="0" y="-1000" z="0" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+        </keyframeanim>
+        <keyframeanim id="shootingAnimation"> 
+            <keyframe instant="17">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+
+            <keyframe instant="17.3">
+                <translation x="-7" y="0" z="8" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            <keyframe instant="18">
+                <translation x="-7" y="0" z="8" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="10" sy="10" sz="10" />
+            </keyframe>
+            <keyframe instant="18.1">
+                <translation x="0" y="-10000" z="8" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="0" sy="0" sz="0" />
+            </keyframe>
+            <!-- <keyframe instant="5.6">
+                <translation x="0" y="-1000" z="0" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe> -->
+        </keyframeanim>
+        <keyframeanim id="tireAnimation">
+            <keyframe instant="0">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+
+            <keyframe instant="5">
+                <translation x="0" y="1" z="3" />
+                <rotation axis="x" angle="-30" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+
+            <keyframe instant="10">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+
+            <keyframe instant="15">
+                <translation x="0" y="1" z="-3" />
+                <rotation axis="x" angle="30" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+
+            <keyframe instant="20">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+        </keyframeanim>
+
+        <keyframeanim id="sunAnimation">
+            <keyframe instant="0">
+                <translation x="-10" y="-7" z="0" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+
+            <keyframe instant="5">
+                <translation x="-3" y="-3" z="0" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+
+            <keyframe instant="10">
+                <translation x="4" y="1" z="0" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+
+            <keyframe instant="12">
+                <translation x="5" y="1" z="0" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+
+            <keyframe instant="20">
+                <translation x="12" y="-7" z="0" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+        </keyframeanim>
+
+
+        <keyframeanim id="wheelAnimation">
+            <keyframe instant="0">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+
+            <keyframe instant="10">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="720" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+
+            <keyframe instant="20">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="1440" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+
+            <keyframe instant="30">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="2880" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+
+
+        </keyframeanim> 
+
+
+        <keyframeanim id="tankWheelAnimation">
+            <keyframe instant="0">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+
+            <keyframe instant="10">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="720" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+
+            <keyframe instant="20">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="1440" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+
+            <keyframe instant="25">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="2880" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+
+            <keyframe instant="35">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="5760" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+
+
+        </keyframeanim>
+
+
+        <keyframeanim id="carAnimation">
+            <keyframe instant="0">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+
+            <keyframe instant="30">
+                <translation x="0" y="0" z="-45" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+        </keyframeanim>
+
+    </animations>
+
+
+
+    <components>
+        <component id="demoRoot">
+            <transformation>    
+            </transformation>
+            <materials>
+                <material id="neutral"/>
+            </materials>
+            <texture id="demoTexture"/>
+            <children>
+                <componentref id="tank" />
+                <componentref id="floor" />
+                <componentref id="ground" />
+                <componentref id="flag" />
+                <componentref id="house" />
+                <componentref id="billboard" />
+                <componentref id="tree" />
+                <componentref id="mine" />
+                <componentref id="explosion"/>
+                <componentref id="shootingBullet" />
+                <componentref id="sun" />
+                <componentref id="street_lamp" />
+                <componentref id="car" />
+                <componentref id="picnic" />
+                </children>
+            </component>
+
+        <component id="picnic">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="patch" />
+                <componentref id="picnic_towel" />
+            </children>
+        </component>
+
+
+        <component id="picnic_towel">
+            <transformation>
+                <translate x="10.5" y="0.02" z="11.5" /> 
+                <scale x="8" y="2" z="6" />
+                <rotate angle="-90" axis="x"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="picnicTexture"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="car">
+            <transformation>
+                <translate x="-1" y="0" z="7" /> 
+                <scale x="0.7" y="0.7" z="0.7" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="camouflageTexture"/>
+            <animation id="carAnimation" />
+            <children>
+                <componentref id="car_body_back" />
+                <componentref id="car_body_front" /> 
+                <componentref id="wheels" /> 
+                <componentref id="car_windows" />
+                <componentref id="car_headlights" />
+            </children>
+        </component>
+
+        <component id="car_headlights">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="car_headlights_right" />
+                <componentref id="car_headlights_left" />
+            </children>
+        </component>
+
+        <component id="car_headlights_right">
+            <transformation>
+                <translate x="-0.5" y="2" z="12" /> 
+                <scale x="1" y="1" z="0.1" />
+            </transformation>
+            <materials>
+                <material id="light_yellow" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <primitiveref id="demoSphere" />
+            </children>
+        </component>
+
+        <component id="car_headlights_left">
+            <transformation>
+                <translate x="-3" y="2" z="12" /> 
+                <scale x="1" y="1" z="0.1" />
+            </transformation>
+            <materials>
+                <material id="light_yellow" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <primitiveref id="demoSphere" />
+            </children>
+        </component>
+
+        <component id="car_windows">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="glassTexture"/>
+            <children>
+                <componentref id="car_window_front" />
+                <componentref id="car_window_left" />
+                <componentref id="car_window_right" />
+                <componentref id="car_window_back" />
+            </children>
+        </component>
+
+        <component id="car_window_back">
+            <transformation>
+                <translate x="-1.8" y="4" z="19.09" /> 
+                <scale x="1.7" y="1" z="2" />
+                <rotate angle="90" axis="z"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" length_h="1" length_s="2"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="car_window_right">
+            <transformation>
+                <translate x="0.389" y="3.5" z="17" /> 
+                <scale x="1" y="2" z="1" />
+                <rotate angle="90" axis="y"/>
+                <rotate angle="90" axis="z"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+            <component id="car_window_left">
+            <transformation>
+                <translate x="-3.89" y="3.5" z="17" /> 
+                <scale x="1" y="2" z="1" />
+                <rotate angle="-90" axis="y"/>
+                <rotate angle="90" axis="z"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="car_window_front">
+            <transformation>
+                <translate x="-1.8" y="4" z="14.99" /> 
+                <scale x="1.7" y="1" z="2" />
+                <rotate angle="90" axis="z"/>
+                <rotate angle="180" axis="x"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="brokenGlassTexture" length_h="1" length_s="2"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="wheels">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="wheel_front_left" />
+                <componentref id="wheel_front_right" />
+                <componentref id="wheel_back_left" />
+                <componentref id="wheel_back_right" />
+            </children>
+        </component>
+
+        <component id="wheel_back_right">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="wheel_back_right_rim" />
+                <componentref id="wheel_back_right_tire" />
+            </children>
+        </component>
+
+        <component id="wheel_back_right_tire">
+            <transformation>
+                <translate x="0.5" y="1" z="17.5" /> 
+                <rotate angle="-90" axis="y"/>
+                <rotate angle="90" axis="z"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="tireTexture"/>
+            <animation id="wheelAnimation" />
+            <children>
+                <primitiveref id="demoTorus" />
+            </children>
+        </component>
+
+        <component id="wheel_back_right_rim">
+            <transformation>
+                <translate x="0.5" y="1" z="17.5" /> 
+                <scale x="0.1" y="1" z="1" />
+                <rotate angle="-90" axis="y"/>
+                <rotate angle="90" axis="z"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none"/>
+            <animation id="wheelAnimation" />
+            <children>
+                <primitiveref id="demoSphere" />
+            </children>
+        </component>
+
+        <component id="wheel_back_left">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="wheel_back_left_rim" />
+                <componentref id="wheel_back_left_tire" />
+            </children>
+        </component>
+
+        <component id="wheel_back_left_tire">
+            <transformation>
+                <translate x="-4" y="1" z="17.5" /> 
+                <rotate angle="-90" axis="y"/>
+                <rotate angle="90" axis="z"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="tireTexture"/>
+            <animation id="wheelAnimation" />
+            <children>
+                <primitiveref id="demoTorus" />
+            </children>
+        </component>
+
+        <component id="wheel_back_left_rim">
+            <transformation>
+                <translate x="-4" y="1" z="17.5" /> 
+                <scale x="0.1" y="1" z="1" />
+                <rotate angle="-90" axis="y"/>
+                <rotate angle="90" axis="z"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none"/>
+            <animation id="wheelAnimation" />
+            <children>
+                <primitiveref id="demoSphere" />
+            </children>
+        </component>
+
+        <component id="wheel_front_right">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="wheel_front_right_rim" />
+                <componentref id="wheel_front_right_tire" />
+            </children>
+        </component>
+
+        <component id="wheel_front_right_tire">
+            <transformation>
+                <translate x="0.5" y="1" z="14" /> 
+                <rotate angle="-90" axis="y"/>
+                <rotate angle="90" axis="z"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="tireTexture"/>
+            <animation id="wheelAnimation" />
+            <children>
+                <primitiveref id="demoTorus" />
+            </children>
+        </component>
+
+        <component id="wheel_front_right_rim">
+            <transformation>
+                <translate x="0.5" y="1" z="14" /> 
+                <scale x="0.1" y="1" z="1" />
+                <rotate angle="-90" axis="y"/>
+                <rotate angle="90" axis="z"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none"/>
+            <animation id="wheelAnimation" />
+            <children>
+                <primitiveref id="demoSphere" />
+            </children>
+        </component>
+
+        <component id="wheel_front_left">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="wheel_front_left_rim" />
+                <componentref id="wheel_front_left_tire" />
+            </children>
+        </component>
+
+        <component id="wheel_front_left_rim">
+            <transformation>
+                <translate x="-4" y="1" z="14" /> 
+                <scale x="0.1" y="1" z="1" />
+                <rotate angle="-90" axis="y"/>
+                <rotate angle="90" axis="z"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none"/>
+            <animation id="wheelAnimation" />
+            <children>
+                <primitiveref id="demoSphere" />
+            </children>
+        </component>
+
+        <component id="wheel_front_left_tire">
+            <transformation>
+                <translate x="-4" y="1" z="14" />
+                <rotate angle="-90" axis="y"/>
+                <rotate angle="90" axis="z"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="tireTexture"/>
+            <animation id="wheelAnimation" />
+            <children>
+                <primitiveref id="demoTorus" />
+            </children>
+        </component>
+
+        <component id="car_body_front">
+            <transformation>
+                <translate x="0.5" y="1" z="0" /> 
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="car_front_front" />
+                <componentref id="car_front_left" />
+                <componentref id="car_front_right" /> 
+                <componentref id="car_front_top" /> 
+            </children>
+        </component>
+
+        <component id="car_front_top">
+            <transformation>
+                <translate x="-2.3" y="2" z="14" /> 
+                <scale x="4" y="2" z="2" />
+                <rotate angle="-90" axis="x"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="car_front_right">
+            <transformation>
+                <translate x="-0.3" y="1" z="14" /> 
+                <scale x="2" y="2" z="2" />
+                <rotate angle="90" axis="y"/>
+                <rotate angle="90" axis="z"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="car_front_left">
+            <transformation>
+                <translate x="-4.3" y="1" z="14" /> 
+                <scale x="2" y="2" z="2" />
+                <rotate angle="-90" axis="y"/>
+                <rotate angle="90" axis="z"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        
+        <component id="car_front_front">
+            <transformation>
+                <translate x="-2.3" y="1" z="12" /> 
+                <scale x="2" y="2" z="2" />
+                <rotate angle="90" axis="z"/>
+                <rotate angle="180" axis="x"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="car_body_back">
+            <transformation>
+                <translate x="0.5" y="1" z="0" /> 
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="car_front" />
+                <componentref id="car_back" />
+                <componentref id="car_top" /> 
+                <componentref id="car_right" /> 
+                <componentref id="car_left" />
+            </children>
+        </component>
+
+        <component id="car_left">
+            <transformation>
+                <translate x="-4.3" y="2" z="17" /> 
+                <scale x="2" y="4" z="2" />
+                <rotate angle="-90" axis="y"/>
+                <rotate angle="90" axis="z"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="car_right">
+            <transformation>
+                <translate x="-0.3" y="2" z="17" /> 
+                <scale x="2" y="4" z="2" />
+                <rotate angle="90" axis="y"/>
+                <rotate angle="90" axis="z"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="car_top">
+            <transformation>
+                <translate x="-2.3" y="4" z="17" /> 
+                <scale x="4" y="2" z="2" />
+                <rotate angle="-90" axis="x"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="car_back">
+            <transformation>
+                <translate x="-2.3" y="2" z="19" /> 
+                <scale x="2" y="4" z="2" />
+                <rotate angle="90" axis="z"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="car_front">
+            <transformation>
+                <translate x="-2.3" y="2" z="15" /> 
+                <scale x="2" y="4" z="2" />
+                <rotate angle="90" axis="z"/>
+                <rotate angle="180" axis="x"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="patch">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="tentPatch" /> 
+                <componentref id="barrelPatch" /> 
+                <componentref id="tentPatchInside"/>
+            </children> 
+        </component>
+
+        <component id="barrelPatch">
+            <transformation>
+                <translate x="8.5" y="0" z="6.5" /> 
+                <scale x="0.5" y="0.5" z="0.5" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="barrelTexture"/>
+            <children>
+                <componentref id="leftBarrel" />
+                <componentref id="rightBarrel" /> 
+                <componentref id="topHalfCircle" />
+                <componentref id="topHalfCircle2" />
+                <componentref id="botHalfCircle" />
+                <componentref id="botHalfCircle2" />
+            </children>
+        </component>
+
+        <component id="botHalfCircle2">
+            <transformation>
+                <translate x="10" y="0" z="12" /> 
+                <scale x="2" y="2" z="2" />
+                <rotate angle="90" axis="z"/>
+                <rotate angle="180" axis="x"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchHalfCircle" />
+            </children>
+        </component>
+
+        <component id="botHalfCircle">
+            <transformation>
+                <translate x="10" y="0" z="14" /> 
+                <scale x="2" y="2" z="2" />
+                <rotate angle="90" axis="z"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchHalfCircle" />
+            </children>
+        </component>
+
+        <component id="topHalfCircle2">
+            <transformation>
+                <translate x="10" y="4" z="12" /> 
+                <scale x="2" y="2" z="2" />
+                <rotate angle="-90" axis="z"/>
+                <rotate angle="180" axis="x"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchHalfCircle" />
+            </children>
+        </component>
+
+        <component id="topHalfCircle">
+            <transformation>
+                <translate x="10" y="4" z="14" /> 
+                <scale x="2" y="2" z="2" />
+                <rotate angle="-90" axis="z"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchHalfCircle" />
+            </children>
+        </component>
+
+        <component id="leftBarrel">
+            <transformation>
+                <translate x="10" y="0" z="12" /> 
+                <scale x="2" y="2" z="2" />
+                <rotate angle="-90" axis="y"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchHalfBarrel" />
+            </children>
+        </component>
+
+        <component id="rightBarrel">
+            <transformation>
+                <translate x="10" y="0" z="14" /> 
+                <scale x="2" y="2" z="2" />
+                <rotate angle="90" axis="y"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchHalfBarrel" />
+            </children>
+        </component>
+
+        <component id="tentPatch">
+            <transformation>
+                <translate x="10" y="0.02" z="10" />  
+                <scale x="1.5" y="1.5" z="1.5" />
+                <rotate angle="-90" axis="x"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="tentTexture"/>
+            <children>
+                <primitiveref id="patchTent" />
+            </children>
+        </component>
+
+        <component id="tentPatchInside">
+            <transformation>
+                <translate x="10" y="0.02" z="10" />  
+                <scale x="1.5" y="1.5" z="1.5" />
+                <rotate angle="90" axis="x"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="tentTexture"/>
+            <children>
+                <primitiveref id="patchTentInside" />
+            </children>
+        </component>
+
+        <component id="street_lamp">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="rustTexture"/>
+            <children>
+                <componentref id="body_street_lamp" />
+                <componentref id="base_street_lamp" /> 
+                <componentref id="street_light" /> 
+            </children>
+        </component>
+
+        <component id="street_light">
+            <transformation>
+                <translate x="5.5" y="6.2" z="18" />   
+                <scale x="2" y="2" z="2" />
+            </transformation>
+            <materials>
+                <material id="light_yellow" />
+                <material id="blue" />
+                <material id="black" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <primitiveref id="demoSphere" />
+            </children>
+        </component>
+
+        <component id="base_street_lamp">
+            <transformation>
+                <translate x="5.5" y="5.5" z="18" />
+                <scale x="1" y="0.5" z="1" />
+                <rotate angle="90" axis="x"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="demoTorus" />
+            </children>
+        </component>
+
+        <component id="body_street_lamp">
+            <transformation>
+                <translate x="5.5" y="5.7" z="18" />
+                <scale x="1.1" y="1.1" z="1.1" />
+                <rotate angle="90" axis="x"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="demoCylinder" />
+            </children>
+        </component>
+
+        <component id="sun">
+            <transformation>
+                <translate x="-16" y="13.6" z="-40" />
+                <scale x="3" y="3" z="3" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="sunTexture"/>
+            <animation id="sunAnimation" />
+            <!-- <animation id="firepitAnimation" /> -->
+            <children>
+                <primitiveref id="demoSphere" />
+            </children>
+            <highlighted r="0.0" g="1.0" b="0.0" length_h="15"/>
+        </component>
+
+        <component id="explosion">
+            <transformation>
+                <translate x="2" y="0.2" z="7" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="explosionTexture"/>
+            <animation id="explosionAnimation" />
+            <highlighted r="1.0" g="0.0" b="0.0" length_h="15"/>
+            <children>
+                <primitiveref id="demoSphere" />
+            </children>
+        </component>
+
+        <component id="shootingBullet">
+            <transformation>
+                <translate x="0" y="2.4" z="3" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="explosionTexture"/>
+            <animation id="shootingAnimation" />
+            <children>
+                <primitiveref id="demoSphere" />
+            </children>
+        </component>
+
+        <component id="mine">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="none"/>
+            <animation id="mineAnimation" />
+            <children>
+                <componentref id="base" />
+                <componentref id="top_mine" /> 
+                <componentref id="red_light" /> 
+                <componentref id="top_red_light" /> 
+            </children>
+        </component>
+
+        <component id="top_red_light">
+            <transformation>
+                <translate x="2" y="0.3" z="7" />
+                <scale x="0.3" y="0" z="0.3" />
+                <rotate angle="-90" axis="x"/>
+            </transformation>
+            <materials>
+                <material id="red" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <primitiveref id="demoCylinder" />
+            </children>
+        </component>
+
+        <component id="red_light">
+            <transformation>
+                <translate x="2" y="0.3" z="7" />
+                <scale x="0.3" y="0.015" z="0.3" />
+                <rotate angle="90" axis="x"/>
+            </transformation>
+            <materials>
+                <material id="red" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <primitiveref id="demoCylinder" />
+            </children>
+        </component>
+
+        <component id="base">
+            <transformation>
+                <translate x="2" y="0.2" z="7" />
+                <scale x="1" y="0.03" z="1" />
+                <rotate angle="90" axis="x"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="tankTexture"/>
+            <children>
+                <primitiveref id="demoCylinder" />
+            </children>
+        </component>
+
+        <component id="top_mine">
+            <transformation>
+                <translate x="2" y="0.2" z="7" />
+                <scale x="1" y="0" z="1" />
+                <rotate angle="-90" axis="x"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="tankTexture"/>
+            <children>
+                <primitiveref id="demoCylinder" />
+            </children>
+        </component>
+
+        <component id="tree">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="tree_body" />
+                <componentref id="leaves" /> 
+                <componentref id="rope" />
+                <componentref id="tire" />
+            </children>
+        </component>
+
+        <component id="tire">
+            <transformation>
+                <translate x="12.5" y="2.5" z="-10" />
+                <scale x="1.2" y="1.2" z="1.2" />
+            </transformation>
+            <materials>
+                <material id="neutral" />
+                <material id="wheelMaterial" />
+            </materials>
+            <texture id="mastTexture"/>
+            <!-- <animation id="tireAnimation"/> -->
+            <children>
+                <primitiveref id="demoTorus" />
+            </children>
+        </component>
+
+        <component id="rope">
+            <transformation>
+                <translate x="12.5" y="6" z="-10" />
+                <scale x="0.1" y="0.6" z="0.1" />
+                <rotate angle="90" axis="x"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="mastTexture"/>
+            <!-- <animation id="tireAnimation"/> -->
+            <children>
+                <primitiveref id="demoCylinder" />
+            </children>
+        </component>
+
+        <component id="tree_body">
+            <transformation>
+                <translate x="10" y="6" z="-10" />
+                <scale x="1.2" y="1.2" z="1.2" />
+                <rotate angle="90" axis="x"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="trunkTexture"/>
+            <children>
+                <primitiveref id="demoCylinder" />
+            </children>
+        </component>
+
+        <component id="leaves">
+            <transformation>
+                <translate x="10" y="6" z="-10" />
+                <scale x="4" y="1.2" z="4" />
+                <rotate angle="-90" axis="x"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="leavesTexture"/>
+            <children>
+                <primitiveref id="demoCone" />
+            </children>
+        </component>
+
+
+        <component id="billboard">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="steelTexture"/>
+            <children>
+                <componentref id="board_body" />
+                <componentref id="board" />
+                <componentref id="spotlights" />
+            </children>
+        </component>
+
+        <component id="spotlights">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="front_spotlight" />
+                <componentref id="back_spotlight" />
+            </children>
+        </component>
+
+        <component id="back_spotlight">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="back_neck" />
+                <componentref id="back_sphere" />
+                <componentref id="back_front_lamp" />
+                <componentref id="back_back_lamp" />
+                <componentref id="back_bill_lamp" />
+            </children>
+        </component>
+
+        <component id="back_bill_lamp">
+            <transformation>
+                <translate x="-12.78" y="9.81" z="-9" />
+                <scale x="1" y="0.25" z="0.35" />
+                <rotate angle="90" axis="y" />
+            </transformation>
+            <materials>
+                <material id="light_yellow" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="back_back_lamp">
+            <transformation>
+                <translate x="-12.78" y="9.81" z="-9" />
+                <scale x="1" y="0.5" z="0.7" />
+                <rotate angle="-90" axis="y" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="back_front_lamp">
+            <transformation>
+                <translate x="-12.79" y="10" z="-9" />
+                <scale x="1" y="0.5" z="0.7" />
+                <rotate angle="90" axis="y" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="back_neck">
+            <transformation>
+                <translate x="-10.4" y="10.7" z="-9" />
+                <scale x="0.5" y="0.2" z="0.2" />
+                <rotate angle="90" axis="x"/>
+                <rotate angle="-65" axis="y"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="demoCylinder" />
+            </children>
+        </component>
+
+        <component id="back_sphere">
+            <transformation>
+                <translate x="-12.7" y="10.27" z="-9" />
+                <scale x="0.2" y="0.2" z="0.2   " />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="demoSphere" />
+            </children>
+        </component>
+
+        <component id="front_spotlight">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="front_neck" />
+                <componentref id="neck_sphere" />
+                <componentref id="front_lamp" />
+                <componentref id="back_lamp" />
+                <componentref id="lamp" />
+            </children>
+        </component>
+
+        <component id="lamp">
+            <transformation>
+                <translate x="-7.16" y="10" z="-9" />
+                <scale x="0.5" y="0.25" z="0.35" />
+                <rotate angle="-90" axis="y" />
+            </transformation>
+            <materials>
+                <material id="light_yellow" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="back_lamp">
+            <transformation>
+                <translate x="-7.15" y="10" z="-9" />
+                <scale x="1" y="0.5" z="0.7" />
+                <rotate angle="-90" axis="y" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="front_lamp">
+            <transformation>
+                <translate x="-7.15" y="10" z="-9" />
+                <scale x="1" y="0.5" z="0.7" />
+                <rotate angle="90" axis="y" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="front_neck">
+            <transformation>
+                <translate x="-7.22" y="10.5" z="-9" />
+                <scale x="0.5" y="0.2" z="0.2" />
+                <rotate angle="-90" axis="x"/>
+                <rotate angle="-70" axis="y"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="demoCylinder" />
+            </children>
+        </component>
+
+        <component id="neck_sphere">
+            <transformation>
+                <translate x="-7.2" y="10.5" z="-9" />
+                <scale x="0.2" y="0.2" z="0.2" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="demoSphere" />
+            </children>
+        </component>
+
+        <component id="board_body">
+            <transformation>
+                <translate x="-10" y="0" z="-9" />
+                <scale x="1" y="2.2" z="1" />
+                <rotate angle="-90" axis="x"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="demoCylinder" />
+            </children>
+        </component>
+
+        <component id="board">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="front_front_board" />
+                <componentref id="front_back_board" />
+                <componentref id="back_front_board" />
+                <componentref id="back_back_board" />
+            </children>
+        </component>
+
+        <component id="front_front_board">
+            <transformation>
+                <translate x="-9.5" y="8" z="-9" />
+                <scale x="1" y="2.7" z="14" />
+                <rotate angle="90" axis="y" />
+            </transformation>
+            <materials>
+                <material id="white" />
+            </materials>
+            <texture id="ederTexture" length_s="1" length_t="2"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="front_back_board">
+            <transformation>
+                <translate x="-9.5" y="8" z="-9" />
+                <scale x="1" y="2.7" z="14" />
+                <rotate angle="-90" axis="y" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="back_front_board">
+            <transformation>
+                <translate x="-10.5" y="8" z="-9" />
+                <scale x="1" y="2.7" z="14" />
+                <rotate angle="-90" axis="y" />
+            </transformation>
+            <materials>
+                <material id="white" />
+            </materials>
+            <texture id="ederTexture" length_s="1" length_t="2"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="back_back_board">
+            <transformation>
+                <translate x="-10.5" y="8" z="-9" />
+                <scale x="1" y="2.7" z="14" />
+                <rotate angle="90" axis="y" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="house">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="walls" />
+                <componentref id="door" />
+                <componentref id="roof" />
+                <componentref id="window" />
+            </children>
+        </component>
+
+        <component id="window">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="windowTexture" length_s="1" length_t="2"/>
+            <children>
+                <componentref id="window_left" />
+                <componentref id="window_right" />
+                <componentref id="balcony" />
+            </children>
+        </component>
+
+
+        <component id="balcony">
+            <transformation>
+                <translate x="-11" y="7.5" z="16.6" />
+                <scale x="5" y="1.2" z="1" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="window_left">
+            <transformation>
+                <translate x="-8.24" y="7.5" z="14" />
+                <scale x="1.2" y="1.2" z="2.2" />
+                <rotate angle="90" axis="y" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="window_right">
+            <transformation>
+                <translate x="-8.24" y="7.5" z="8" />
+                <scale x="1.2" y="1.2" z="2.2" />
+                <rotate angle="90" axis="y" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="roof">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="tilesTexture"/>
+            <children>
+                <componentref id="roof_left" />
+                <componentref id="roof_front" />
+                <componentref id="roof_back" />
+                <componentref id="roof_right" />
+            </children>
+        </component>
+
+        <component id="roof_front">
+            <transformation>
+                <translate x="-8.24" y="11" z="16.5" />
+                <scale x="2.9" y="3.2" z="2.75" />
+                <rotate angle="180" axis="y" />
+                <rotate angle="-28" axis="z" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="demoTriangle" />
+            </children>
+        </component>
+
+        <component id="roof_left">
+            <transformation>
+                <translate x="-13.8" y="11" z="16.5" />
+                <scale x="1.4" y="4.5" z="3.5" />
+                <rotate angle="90" axis="y" /> 
+                <rotate angle="-52.5" axis="z" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="demoTriangle" />
+            </children>
+        </component>
+
+        <component id="roof_right">
+            <transformation>
+                <translate x="-8.2" y="11" z="5.5" />
+                <scale x="1.4" y="4.5" z="3.5" />
+                <rotate angle="-90" axis="y" /> 
+                <rotate angle="-52.5" axis="z" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="demoTriangle" />
+            </children>
+        </component>
+
+        <component id="roof_back">
+            <transformation>
+                <translate x="-13.76" y="11" z="5.5" />
+                <scale x="2.9" y="3.2" z="2.75" />
+                <rotate angle="-28" axis="z" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="demoTriangle" />
+            </children>
+        </component>
+
+        <component id="door">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="front_door" />
+                <componentref id="handle_door" />
+            </children>
+        </component>
+
+        <component id="front_door">
+            <transformation>
+                <translate x="-8.24" y="2.5" z="11" />
+                <scale x="2.2" y="2.4" z="2.2" />
+                <rotate angle="90" axis="y" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="doorTexture"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="handle_door">
+            <transformation>
+                <translate x="-8.2" y="2.5" z="10.3" />
+                <scale x="0" y="0.25" z="0.25" />
+                <rotate angle="90" axis="y" />
+            </transformation>
+            <materials>
+                <material id="black" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <primitiveref id="demoCylinder" />
+            </children>
+        </component>
+
+        <component id="walls">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+                <scale x="1.1" y="1.1" z="1.1" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="brickTexture"/>
+            <children>
+                <componentref id="wall_front" />
+                <componentref id="wall_back" />
+                <componentref id="wall_left" />
+                <componentref id="wall_right" />
+                <componentref id="wall_top" />
+            </children>
+        </component>
+
+
+        <component id="wall_left">
+            <transformation>
+                <translate x="-10" y="5" z="15" />
+                <scale x="5" y="5" z="5" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="wall_back">
+            <transformation>
+                <translate x="-12.5" y="5" z="10" />
+                <scale x="5" y="5" z="10" />
+                <rotate angle="-90" axis="y" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="wall_front">
+            <transformation>
+                <translate x="-7.5" y="5" z="10" />
+                <scale x="5" y="5" z="10" />
+                <rotate angle="90" axis="y" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+
+        <component id="wall_top">
+            <transformation>
+                <translate x="-10" y="10" z="10" />
+                <scale x="5" y="5" z="5" />
+                <rotate angle="-90" axis="x" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="wall_right">
+            <transformation>
+                <translate x="-10" y="5" z="5" />
+                <scale x="5" y="5" z="5" />
+                <rotate angle="180" axis="y" /> 
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        
+
+        <component id="ground">
+            <transformation>
+                <rotate angle="-90" axis="x" />
+                <scale x="30" y="20" z="15" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="tank">
+            <transformation>
+                <scale x="0.5" y="0.5" z="0.5" /> 
+                <translate x="2" y="0" z="0" />  
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="demoTexture"/>
+            <animation id="flagAnimation" />
+            <children>
+                <componentref id="box" />
+                <componentref id="tower" />
+                <componentref id="wheel1" />
+                <componentref id="wheel2" />
+            </children>
+        </component>
+
+        <component id="floor">
+            <transformation>
+                <rotate angle="-90" axis="x" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="sandTexture"/>
+            <children>
+                <componentref id="road" />
+                <componentref id="roadside" />
+                <componentref id="roadline" />
+            </children>
+        </component>
+
+        <component id="road">
+            <transformation>
+                <scale x="9" y="20" z="1" />
+                <translate x="0" y="0" z="0.01" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="asphaltTexture"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="roadside">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="bankTexture"/>
+            <children>
+                <componentref id="roadside1" />
+                <componentref id="roadside2" />
+            </children>
+        </component>
+
+        <component id="roadside1">
+            <transformation>
+                <scale x="2" y="20" z="3" />
+                <translate x="2.755" y="0" z="0.1" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="roadside1top" />
+                <componentref id="roadside1right" />
+                <componentref id="roadside1left" />
+                <componentref id="roadside1front" />
+                <componentref id="roadside1back" />
+            </children>
+        </component>
+
+        <component id="roadside1top">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="roadside1right">
+            <transformation>
+                <scale x="0.3" y="1" z="0.1" />
+                <translate x="1.65" y="0" z="-0.5" />
+                <rotate angle="90" axis="y" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="roadside1left">
+            <transformation>
+                <scale x="0.3" y="1" z="0.1" />
+                <translate x="-1.65" y="0" z="-0.5" />
+                <rotate angle="-90" axis="y" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+        <component id="roadside1front">
+            <transformation>
+                <translate x="0" y="-1" z="-0.05" />
+                <scale x="1" y="0.1" z="0.05" />
+                <rotate angle="90" axis="x" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="roadside1back">
+            <transformation>
+                <translate x="0" y="1" z="-0.05" />
+                <scale x="1" y="0.1" z="0.05" />
+                <rotate angle="-90" axis="x" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="roadside2">
+            <transformation>
+                <scale x="2" y="20" z="3" />
+                <translate x="-2.755" y="0" z="0.1" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="roadside2top" />
+                <componentref id="roadside2right" />
+                <componentref id="roadside2left" />
+                <componentref id="roadside2front" />
+                <componentref id="roadside2back" />
+            </children>
+        </component>
+
+        <component id="roadside2top">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="roadside2left">
+            <transformation>
+                <scale x="0.3" y="1" z="0.1" />
+                <translate x="-1.65" y="0" z="-0.5" />
+                <rotate angle="-90" axis="y" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="roadside2right">
+            <transformation>
+                <scale x="0.3" y="1" z="0.1" />
+                <translate x="1.65" y="0" z="-0.5" />
+                <rotate angle="90" axis="y" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+        <component id="roadside2back">
+            <transformation>
+                <translate x="0" y="1" z="-0.05" />
+                <scale x="1" y="0.1" z="0.05" />
+                <rotate angle="-90" axis="x" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="roadside2front">
+            <transformation>
+                <translate x="0" y="-1" z="-0.05" />
+                <scale x="1" y="0.1" z="0.05" />
+                <rotate angle="90" axis="x" />
+            </transformation>
+            <materials>
+                <material id="dark" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="roadline">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="neutral" />
+            </materials>
+            <texture id="bankTexture"/>
+            <children>
+                <componentref id="line1" />
+                <componentref id="line2" />
+                <componentref id="line3" />
+                <componentref id="line4" />
+                <componentref id="line5" />
+                <componentref id="line6" />
+                <componentref id="line7" />
+            </children>
+        </component>
+
+        <component id="line1">
+            <transformation>
+                <translate x="0" y="0" z="0.02" />
+                <scale x="0.5" y="1.5" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="bankTexture"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="line2">
+            <transformation>
+                <translate x="0" y="7" z="0.02" />
+                <scale x="0.5" y="1.5" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="bankTexture"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="line3">
+            <transformation>
+                <translate x="0" y="14" z="0.02" />
+                <scale x="0.5" y="1.5" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="bankTexture"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="line4">
+            <transformation>
+                <translate x="0" y="-7" z="0.02" />
+                <scale x="0.5" y="1.5" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="bankTexture"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="line5">
+            <transformation>
+                <translate x="0" y="-14" z="0.02" />
+                <scale x="0.5" y="1.5" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="bankTexture"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="line6">
+            <transformation>
+                <translate x="0" y="-19.5" z="0.02" />
+                <scale x="0.5" y="0.5" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="bankTexture"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="line7">
+            <transformation>
+                <translate x="0" y="19.5" z="0.02" />
+                <scale x="0.5" y="0.5" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="bankTexture"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+        
+
+        <component id="box">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="demoTexture"/>
+            <children>
+                <componentref id="front" />
+                <componentref id="back" />
+                <componentref id="left" />
+                <componentref id="right" />
+                <componentref id="top" />
+                <componentref id="bot" />
+            </children>
+        </component>
+
+        <component id="front">
+            <transformation>
+                <translate x="3" y="2.5" z="3" />
+                <scale x="3" y="3" z="3" />
+                <rotate angle="-90" axis="z" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="tankTexture"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="back">
+            <transformation>
+                <translate x="3" y="2.5" z="-3" />
+                <scale x="3" y="3" z="3" />
+                <rotate angle="-90" axis="z" />
+                <rotate angle="180" axis="x" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="tankTexture"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="left">
+            <transformation>
+                <translate x="0" y="2.5" z="0" />
+                <scale x="3" y="3" z="3" />
+                <rotate angle="-90" axis="y" />
+                <rotate angle="90" axis="z"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="tankTexture"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+
+        <component id="right">
+            <transformation>
+                <translate x="6" y="2.5" z="0" />
+                <scale x="3" y="3" z="3" />
+                <rotate angle="90" axis="y" />
+                <rotate angle="90" axis="z"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="tankTexture"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="top">
+            <transformation>
+                <translate x="3" y="4.0" z="0" />
+                <scale x="3" y="1" z="6" />
+                <rotate angle="-90" axis="x" />
+                <rotate angle="-90" axis="z" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="tankTexture"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+        <component id="bot">
+            <transformation>
+                <translate x="3" y="1" z="0" />
+                <scale x="3" y="1" z="6" />
+                <rotate angle="90" axis="x" />
+                <rotate angle="-90" axis="z" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="tankTexture"/>
+            <children>
+                <primitiveref id="patchRectangle" />
+            </children>
+        </component>
+
+
+        <component id="tower">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="tankTexture"/>
+            <children>
+                <componentref id="cannon" />
+                <componentref id="body" />
+                <componentref id="shoot" />
+                <componentref id="sphere" />
+            </children>
+        </component>
+
+        <component id="body">
+            <transformation>
+                <translate x="3" y="4" z="0" />
+                <scale x="2" y="0.35" z="2" />
+                <rotate angle="-90" axis="x"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="tankTexture"/>
+            <children>
+                <primitiveref id="demoCylinder" />
+            </children>
+        </component>
+
+        <component id="cannon">
+            <transformation>
+                <translate x="3" y="5.1" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="tankTexture"/>
+            <children>
+                <primitiveref id="demoCylinder" />
+            </children>
+        </component>
+
+        <component id="shoot">
+            <transformation>
+                <translate x="3" y="5.1" z="4.8" />
+                <scale x="1.5" y="1.3" z="0.4" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="gunTexture"/>
+            <children>
+                <primitiveref id="demoCylinder" />
+            </children>
+            <highlighted r="1.0" g="0.0" b="0.0" length_h="3"/>
+        </component>
+
+        <component id="sphere">
+            <transformation>
+                <translate x="3" y="5.7" z="0" />
+                <scale x="1.95" y="1.95" z="1.95" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="tankTexture"/>
+            <children>
+                <primitiveref id="demoSphere" />
+            </children>
+        </component>
+
+        <component id="wheel1">
+            <transformation>
+                <translate x="0" y="1" z="0" />
+                <scale x="1" y="1.5" z="3" />
+                <rotate angle="90" axis="y" />
+            </transformation>
+            <materials>
+                <material id="neutral" />
+            </materials>
+            <texture id="tireTexture"/>
+            <animation id="tankWheelAnimation" />
+            <children>
+                <primitiveref id="demoTorus" />
+            </children>
+            <highlighted r="1.0" g="1.0" b="1.0" length_h="1.5"/>
+        </component>
+
+        <component id="wheel2">
+            <transformation>
+                <translate x="6" y="1" z="0" />
+                <scale x="1" y="1.5" z="3" />
+                <rotate angle="90" axis="y" />
+            </transformation>
+            <materials>
+                <material id="neutral" />
+            </materials>
+            <texture id="tireTexture"/>
+            <animation id="tankWheelAnimation" />
+            <children>
+                <primitiveref id="demoTorus" />
+            </children>
+            <highlighted r="1.0" g="1.0" b="1.0" length_h="1.5"/>
+        </component>
+        <component id="flag">
+            <transformation>
+                <translate x="5.85" y="4" z="-2" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="tankTexture"/>
+            <children>
+                <componentref id="mast" /> 
+                <componentref id="triangleFlag" /> 
+            </children>
+        </component>
+        
+        <component id="mast">
+            <transformation>
+                <translate x="0" y="-4" z="0" />
+                <scale x="0.15" y="1.25" z="0.15" />
+                <rotate angle="-90" axis="x"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="mastTexture"/>
+            <children>
+                <primitiveref id="demoCylinder" />
+                <componentref id="mastTop" />
+            </children>
+        </component>
+        
+        <component id="mastTop">
+            <transformation>
+                <translate x="0" y="0" z="4.9" />
+                <scale x="2" y="2" z="0.25" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="demoSphere" />
+            </children>
+        </component>
+
+        <component id="triangleFlag">
+            <transformation>
+                <translate x="0.01" y="0" z="0" />
+                <scale x="1" y="0.5" z="2" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="flagTexture"/>
+            <anination id="flag_anim" />
+            <children>
+                <componentref id="triangleFlag1" /> 
+                <componentref id="triangleFlag2" /> 
+            </children>
+        </component>
+        <component id="triangleFlag1">
+            <transformation>
+                <rotate angle="-90" axis="x"/>
+            </transformation>
+            <materials>
+                <material id="light_yellow"/>
+                <material id="dark"/>
+            </materials>
+            <texture id="inherit" length_s="1" length_t="1"/>
+            <children>
+                <primitiveref id="demoTriangle" />
+            </children>
+        </component>
+        <component id="triangleFlag2">
+            <transformation>
+                <translate x="0" y="4" z="0"/>
+                <rotate angle="-90" axis="x"/>
+                <rotate angle="180" axis="y"/>
+            </transformation>
+            <materials>
+                <material id="light_yellow"/>
+                <material id="dark"/>
+            </materials>
+            <texture id="inherit" length_s="1" length_t="1"/>
+            <children>
+                <primitiveref id="demoTriangle" />
+            </children>
+        </component>
+    </components>
+</sxs>
