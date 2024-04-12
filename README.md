@@ -14,13 +14,13 @@
 
 ## Project information
 
-- All the specified primitves were implemented
+- All the specified primitives were implemented
 - Lights were implemented
 - Transformations were implemented
 - Materials were implemented
 - A component data structure was created to ease the whole process.
 - Scene
-  - Our [scene](scenes/demo.xml) consits in a representation of a tank, a house, a tree with a swing, a road a landmine and a billboard.
+  - Our [scene](scenes/demo.xml) consists of a representation of a tank, a house, a tree with a swing, a road, a landmine, and a billboard.
   - Screenshots of the project can be found [here](screenshots)
 ----
 
@@ -30,8 +30,21 @@
 
 -----
 
-### [TP2 - ...](tp2)
-- (items briefly describing main strong points)
+### [TP2 ](tp2)
+
+## Project information
+
+- All the specified primitives were implemented
+- Animations were implemented
+- NURBS were implemented
+- Shaders were implemented
+- Scene
+  - Our [scene](scenes/demo.xml).
+  - Screenshots of the project can be found [here](screenshots)
+----
+## Issues/Problems
+
+- None
 
 ----
 
